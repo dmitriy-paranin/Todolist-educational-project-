@@ -39,7 +39,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
         case 'REMOVE-TASK': {
             let stateCopy = {...state};
             let todolistTasks = state[action.todolistId];
-            let filteredTasks = todolistTasks.filter(t => t.id != action.id);
+            let filteredTasks = todolistTasks.filter(t => t.id !== action.id);
             stateCopy[action.todolistId] = filteredTasks;
             return stateCopy;
         }
@@ -83,6 +83,9 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
     }
 }
 
+export const changeTaskTitleAC = (id: string, newTitle: string, todolistId: string): changeTaskTitleACType => {
+    return {type: 'CHANGE-TASK-TITLE', id, newTitle, todolistId}
+}
 export const removeTaskAC = (id: string, todolistId: string): removeTaskACType => {
     return {type: 'REMOVE-TASK', id: id, todolistId: todolistId}
 }
@@ -92,7 +95,5 @@ export const addTaskAC = (title: string, todolistId: string): addTaskACType => {
 export const changeTaskStatusAC = (id: string, isDone: boolean, todolistId: string): changeTaskStatusACType => {
     return {type: 'CHANGE-TASK-STATUS', id, isDone, todolistId}
 }
-export const changeTaskTitleAC = (id: string, newTitle: string, todolistId: string): changeTaskTitleACType => {
-    return {type: 'CHANGE-TASK-TITLE', id, newTitle, todolistId}
-}
+
 
