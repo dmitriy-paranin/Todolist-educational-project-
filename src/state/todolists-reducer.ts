@@ -22,11 +22,9 @@ type ChangeTodolistFilterActionType = {
 }
 type ActionType = RemoveTodolistActionType | AddTodolistActionType | ChangeTodolistTitleActionType | ChangeTodolistFilterActionType
 
-// меня вызовут и дадут стейт (почти всегда объект)
-// и инструкцию (action, тоже объект)
-// согласно прописанному type в этом action (инструкции) я поменяю state
+const initialState: Array<TodolistType> = []
 
-export const todolistsReducer = (state: Array<TodolistType>, action: ActionType): Array<TodolistType> => {
+export const todolistsReducer = (state: Array<TodolistType> = initialState, action: ActionType): Array<TodolistType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
             return state.filter(tl => tl.id !== action.id);
@@ -48,10 +46,10 @@ export const todolistsReducer = (state: Array<TodolistType>, action: ActionType)
             if (findTodolist){
                 findTodolist.filter = action.filter;
             }
-            return stateCopy
+            return stateCopy;
         }
         default:
-            throw new Error("I don't understand this type")
+            return state;
     }
 }
 
